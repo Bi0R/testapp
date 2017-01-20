@@ -1,49 +1,64 @@
 package com.nojsoft.configuration;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.sql.DataSource;
+import java.util.Properties;
 
 /**
  * Created by alan on 1/14/17.
  */
+@Configuration
+@EnableTransactionManagement
+@ComponentScan({"com.nojsoft.configuration"})
+@PropertySource(value = {"classpath:application.properties"})
 public class HibernateConnector {
-    private static HibernateConnector me;
-    private Configuration cfg;
-    private SessionFactory sessionFactory;
 
-    private HibernateConnector() throws HibernateException {
+    @Autowired
+    private Environment environment;
 
-        cfg = new Configuration();
-        cfg.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
-        cfg.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/testapp?useSSL=false");
-        cfg.setProperty("hibernate.connection.username", "root");
-        cfg.setProperty("hibernate.connection.password", "alan10}");
-        cfg.setProperty("hibernate.show_sql", "true");
-        cfg.setProperty("connection.autocommit", "true");
-
-        cfg.addAnnotatedClass(com.nojsoft.model.Group.class);
-
-        sessionFactory = cfg.buildSessionFactory();
+    @Bean
+    public LocalSessionFactoryBean sessionFactory() {
+        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+        sessionFactory.setDataSource(dataSource());
+        sessionFactory.setPackagesToScan(new String[]{"com.nojsoft.model"});
+        sessionFactory.setHibernateProperties(hibernateProperties());
+        return sessionFactory;
     }
 
-    public static synchronized HibernateConnector getInstance() throws HibernateException {
-        if (me == null) {
-            me = new HibernateConnector();
-        }
-        return me;
+    @Bean
+    public DataSource dataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
+        dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
+        dataSource.setUsername(environment.getRequiredProperty("jdbc.username"));
+        dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
+        return dataSource;
     }
 
-    public Session getSession() throws HibernateException {
-        Session session = sessionFactory.openSession();
-        if (!session.isConnected()) {
-            this.reconnect();
-        }
-        return session;
+    private Properties hibernateProperties() {
+        Properties properties = new Properties();
+        properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
+        properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
+        properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
+        return properties;
     }
 
-    private void reconnect() throws HibernateException {
-        this.sessionFactory = cfg.buildSessionFactory();
+    @Bean
+    @Autowired
+    public HibernateTransactionManager transactionManager(SessionFactory s) {
+        HibernateTransactionManager txManager = new HibernateTransactionManager();
+        txManager.setSessionFactory(s);
+        return txManager;
     }
 }
