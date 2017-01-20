@@ -4,9 +4,9 @@ import com.nojsoft.dao.GroupDao;
 import com.nojsoft.model.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by alan on 1/14/17.
@@ -23,4 +23,8 @@ public class GroupController {
         return groupDao.saveOrUpdate(group);
     }
 
+    @GetMapping("/group/owner/{ownerId}")
+    public List<Group> getGroupsByOwnerId(@PathVariable long ownerId) {
+        return groupDao.getGroupsByOwner(ownerId);
+    }
 }
