@@ -1,7 +1,6 @@
 package com.nojsoft.dao;
 
 import com.nojsoft.model.BaseModel;
-import com.nojsoft.model.Group;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
