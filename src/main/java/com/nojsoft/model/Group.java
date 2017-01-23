@@ -15,27 +15,27 @@ public class Group implements BaseModel {
     @GeneratedValue(strategy = IDENTITY)
 
     @Column(name = "id", unique = true, nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(name = "name", length = 60)
     private String name;
 
     @Column(name = "owner_id", nullable = false)
-    private Integer ownerId;
+    private Long ownerId;
 
     public Group() {
     }
 
-    public Group(Integer id, String name) {
+    public Group(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -47,11 +47,11 @@ public class Group implements BaseModel {
         this.name = name;
     }
 
-    public Integer getOwnerId() {
+    public Long getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(int ownerId) {
+    public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
     }
 }
