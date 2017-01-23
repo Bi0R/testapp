@@ -54,7 +54,7 @@ public class GroupController {
     }
 
     @PostMapping("/group/search")
-    public List<Group> searchGroup (@RequestAttribute String filter, @RequestAttribute String value){
+    public List<Group> searchGroup (@RequestParam ("filter")String filter, @RequestParam ("value") String value){
         if(filter.equals("email")){
             List <User> users = userDao.getUsersByAccessKey(value);
             return groupDao.getGroupsByOwner(users.get(0).getId());
