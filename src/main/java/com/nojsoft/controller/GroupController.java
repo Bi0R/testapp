@@ -4,6 +4,7 @@ import com.nojsoft.dao.GroupDao;
 import com.nojsoft.dao.UserDao;
 import com.nojsoft.model.Group;
 import com.nojsoft.model.GroupParticipant;
+import com.nojsoft.model.GroupSearch;
 import com.nojsoft.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,10 +55,9 @@ public class GroupController {
     }
 
     @PostMapping("/group/search")
-    public List<Group> searchGroup(@RequestBody String filter,
-                                   @RequestBody String value) {
-        if (filter.equals("email")) {
-            List<User> users = userDao.getUsersByAccessKey(value);
+    public List<Group> searchGroup(@RequestBody GroupSearch groupSearch) {
+        if (groupSearch.getFilter().equals("email")) {
+            List<User> users = userDao.getUsersByAccessKey(groupSearch.getValue());
             return groupDao.getGroupsByOwner(users.get(0).getId());
         }
         return null;
