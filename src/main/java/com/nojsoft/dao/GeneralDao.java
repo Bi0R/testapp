@@ -31,8 +31,8 @@ public abstract class GeneralDao {
         getSession().delete(model);
     }
 
-    <T extends BaseModel> List<T> findByField(String field, Object value) {
-        Criteria criteria = getSession().createCriteria(BaseModel.class);
+    <T extends BaseModel> List<T> findByField(Class typeClass, String field, Object value) {
+        Criteria criteria = getSession().createCriteria(typeClass);
         return criteria.add(Restrictions.eq(field, value)).list();
     }
 }
