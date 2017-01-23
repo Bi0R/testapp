@@ -8,7 +8,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 @Entity
 @Table (name = "users")
-public class User {
+public class User implements BaseModel {
     @Id
     @GeneratedValue (strategy = IDENTITY)
 
@@ -26,4 +26,44 @@ public class User {
 
     @Column (name = "authentication_type")
     private Integer authenticationType;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAccessKey() {
+        return accessKey;
+    }
+
+    public void setAccessKey(String accessKey) {
+        this.accessKey = accessKey;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Integer getAuthenticationType() {
+        return authenticationType;
+    }
+
+    public void setAuthenticationType(Integer authenticationType) {
+        this.authenticationType = authenticationType;
+    }
 }
