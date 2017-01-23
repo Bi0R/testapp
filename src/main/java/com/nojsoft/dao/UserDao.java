@@ -12,7 +12,7 @@ import java.util.List;
 @Repository ("UserDao")
 public class UserDao extends GeneralDao{
     public List<User> getUsersByAccessKey (String accessKey){
-        return super.findByField(DataBaseConstants.USER_ACCESS_KEY_FIELD, accessKey);
+        return super.findByField("accessKey", accessKey);
     }
 
 }
