@@ -1,30 +1,31 @@
 package com.nojsoft.model;
 
 import javax.persistence.*;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
  * Created by jorge on 22/01/17.
  */
 @Entity
-@Table (name = "users")
+@Table(name = "users")
 public class User implements BaseModel {
     @Id
-    @GeneratedValue (strategy = IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
 
-    @Column (name = "id", unique = true, nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Column (name = "name", length = 60)
+    @Column(name = "name", length = 60)
     private String name;
 
-    @Column (name = "access_key", length = 60)
+    @Column(name = "access_key", length = 60)
     private String accessKey;
 
-    @Column (name = "token", length = 60)
+    @Column(name = "token", length = 60)
     private String token;
 
-    @Column (name = "authentication_type")
+    @Column(name = "authentication_type")
     private Integer authenticationType;
 
     public Long getId() {
