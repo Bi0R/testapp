@@ -1,8 +1,10 @@
 package com.nojsoft.controller;
 
 import com.nojsoft.dao.GroupDao;
+import com.nojsoft.dao.UserDao;
 import com.nojsoft.model.Group;
 import com.nojsoft.model.GroupParticipant;
+import com.nojsoft.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ public class GroupController {
 
     @Autowired
     private GroupDao groupDao;
+
+    private UserDao userDao;
 
     @PostMapping("/group/save")
     public Group save(@RequestBody Group group) {
@@ -47,5 +51,14 @@ public class GroupController {
     public ResponseEntity<String> denyAccess(@RequestBody GroupParticipant groupParticipant) {
         groupDao.denyAccess(groupParticipant);
         return new ResponseEntity<String>(HttpStatus.OK);
+    }
+
+    @PostMapping("/group/search")
+    public List<Group> searchGroup (@RequestAttribute String filter, @RequestAttribute String value){
+        if(filter.equals("email")){
+            List <User> users = userDao.getUsersByAccessKey(value);
+            return groupDao.getGroupsByOwner(users.get(0).getId());
+        }
+        return null;
     }
 }
