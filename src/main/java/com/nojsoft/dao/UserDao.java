@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by jorge on 22/01/17.
  */
-@Repository ("UserDao")
+@Repository
 public class UserDao extends GeneralDao{
     public List<User> getUsersByAccessKey (String accessKey){
         return super.findByField("accessKey", accessKey);
