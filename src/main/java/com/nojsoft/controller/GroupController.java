@@ -22,7 +22,7 @@ public class GroupController {
 
     @Autowired
     private GroupDao groupDao;
-
+    @Autowired
     private UserDao userDao;
 
     @PostMapping("/group/save")
