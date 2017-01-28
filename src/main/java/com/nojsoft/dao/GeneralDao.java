@@ -1,9 +1,13 @@
 package com.nojsoft.dao;
 
 import com.nojsoft.model.BaseModel;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 
 /**
@@ -14,16 +18,21 @@ public abstract class GeneralDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    protected Session getSession() {
+    private Session getSession() {
         return sessionFactory.getCurrentSession();
     }
 
-    public <T extends BaseModel> T saveOrUpdateEntity(T model) {
+    <T extends BaseModel> T saveOrUpdateEntity(T model) {
         getSession().saveOrUpdate(model);
         return model;
     }
 
-    public void deleteEntity(BaseModel model) {
+    void deleteEntity(BaseModel model) {
         getSession().delete(model);
+    }
+
+    <T extends BaseModel> List<T> findByField(Class typeClass, String field, Object value) {
+        Criteria criteria = getSession().createCriteria(typeClass);
+        return criteria.add(Restrictions.eq(field, value)).list();
     }
 }
