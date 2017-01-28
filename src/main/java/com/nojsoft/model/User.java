@@ -33,8 +33,6 @@ public class User implements BaseModel {
     private Integer authenticationType;
 
 
-    private List<Group> groups;
-
     public Long getId() {
         return id;
     }
@@ -73,17 +71,5 @@ public class User implements BaseModel {
 
     public void setAuthenticationType(Integer authenticationType) {
         this.authenticationType = authenticationType;
-    }
-
-    public List<Group> getGroups() {
-        if (groups == null){
-            GroupDao groupDao = new GroupDao();
-            groups = groupDao.getGroupsByOwner(id);
-        }
-        return groups;
-    }
-
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
     }
 }

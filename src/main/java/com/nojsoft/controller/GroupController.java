@@ -58,6 +58,8 @@ public class GroupController {
     public List<Group> searchGroup(@RequestBody GroupSearch groupSearch) {
         if (groupSearch.getFilter().equals("email")) {
             List<User> users = userDao.getUsersByAccessKey(groupSearch.getValue());
+            if (users.isEmpty())
+                return null;
             return groupDao.getGroupsByOwner(users.get(0).getId());
         }
         return null;
