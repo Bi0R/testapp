@@ -1,5 +1,6 @@
 package com.nojsoft.controller;
 
+import com.nojsoft.constants.GeneralConstants;
 import com.nojsoft.dao.GroupDao;
 import com.nojsoft.dao.UserDao;
 import com.nojsoft.model.Group;
@@ -56,11 +57,9 @@ public class GroupController {
 
     @PostMapping("/group/search")
     public List<Group> searchGroup(@RequestBody GroupSearch groupSearch) {
-        if (groupSearch.getFilter().equals("email")) {
+        if (groupSearch.getFilter().equals(GeneralConstants.EMAIL)) {
             List<User> users = userDao.getUsersByAccessKey(groupSearch.getValue());
-            if (users.isEmpty())
-                return null;
-            return groupDao.getGroupsByOwner(users.get(0).getId());
+            return users.isEmpty() ? null : groupDao.getGroupsByOwner(users.get(0).getId());
         }
         return null;
     }

@@ -20,7 +20,7 @@ public class GroupDao extends GeneralDao {
     public void delete(Group group) {
         super.deleteEntity(group);
     }
-    
+
     public List<Group> getGroupsByOwner(long ownerId) {
         return super.findByField(Group.class, DataBaseConstants.OWNER_ID_FIELD, ownerId);
     }
