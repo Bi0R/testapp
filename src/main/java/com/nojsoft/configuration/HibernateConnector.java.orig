@@ -24,15 +24,11 @@ import java.util.Properties;
 @PropertySource(value = {"classpath:application.properties"})
 public class HibernateConnector {
 
-<<<<<<< HEAD
     @Autowired
     private Environment environment;
-||||||| merged common ancestors
-        cfg.addAnnotatedClass(com.nojsoft.model.Group.class);
-=======
-        cfg.addAnnotatedClass(com.nojsoft.model.Group.class);
-        cfg.addAnnotatedClass(com.nojsoft.model.Test.class);
->>>>>>> Flujo Save Test
+    cfg.addAnnotatedClass(com.nojsoft.model.Group.class);
+    cfg.addAnnotatedClass(com.nojsoft.model.Test.class);
+
 
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
