@@ -4,7 +4,6 @@ import com.nojsoft.constants.DataBaseConstants;
 import com.nojsoft.model.Group;
 import com.nojsoft.model.GroupParticipant;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 /**
@@ -23,7 +22,7 @@ public class GroupDao extends GeneralDao {
     }
 
     public List<Group> getGroupsByOwner(long ownerId) {
-        return super.findByField(DataBaseConstants.OWNER_ID_FIELD, ownerId);
+        return super.findByField(Group.class, DataBaseConstants.OWNER_ID_FIELD, ownerId);
     }
 
     public void requestAccess(GroupParticipant groupParticipant) {
