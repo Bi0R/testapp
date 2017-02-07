@@ -1,10 +1,6 @@
 package com.nojsoft.model;
 
-import com.nojsoft.dao.GroupDao;
-
 import javax.persistence.*;
-
-import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -32,6 +28,8 @@ public class User implements BaseModel {
     @Column(name = "authentication_type")
     private Integer authenticationType;
 
+    @Transient
+    private boolean active;
 
     public Long getId() {
         return id;
@@ -71,5 +69,13 @@ public class User implements BaseModel {
 
     public void setAuthenticationType(Integer authenticationType) {
         this.authenticationType = authenticationType;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
