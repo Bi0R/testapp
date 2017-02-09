@@ -46,7 +46,7 @@ public class GroupDao extends GeneralDao {
         List <GroupParticipant> groupParticipants =
                 super.findByField(GroupParticipant.class, DataBaseConstants.USER_ID_FIELD, participantId);
         List <Long> groups = new ArrayList<Long>();
-        if (groupParticipants.isEmpty()) {
+        if (groupParticipants == null || groupParticipants.isEmpty()) {
             return null;
         }
 
@@ -54,7 +54,6 @@ public class GroupDao extends GeneralDao {
             groups.add(groupParticipant.getGroupId());
         }
 
-        return super.findByField(Group.class, DataBaseConstants.GROUP_ID_FIELD, groups);
-
+        return super.findByField(Group.class, DataBaseConstants.ID_FIELD, groups);
     }
 }
