@@ -3,6 +3,7 @@ package com.nojsoft.dao;
 import com.nojsoft.constants.DataBaseConstants;
 import com.nojsoft.model.Group;
 import com.nojsoft.model.GroupParticipant;
+import org.hibernate.SQLQuery;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -43,17 +44,8 @@ public class GroupDao extends GeneralDao {
     }
 
     public List<Group> getGroupsByParticipant(long participantId) {
-        List <GroupParticipant> groupParticipants =
-                super.findByField(GroupParticipant.class, DataBaseConstants.USER_ID_FIELD, participantId);
-        List <Long> groups = new ArrayList<Long>();
-        if (groupParticipants == null || groupParticipants.isEmpty()) {
-            return null;
-        }
-
-        for (GroupParticipant groupParticipant : groupParticipants) {
-            groups.add(groupParticipant.getGroupId());
-        }
-
-        return super.findByFieldValues(Group.class, DataBaseConstants.ID_FIELD, groups);
+        SQLQuery query = super.getSession().createNativeQuery(DataBaseConstants.GROUP_PARTICIPANT_QUERY);
+        query.setParameter(DataBaseConstants.USER_ID_FIELD, participantId);
+        return query.list();
     }
 }
