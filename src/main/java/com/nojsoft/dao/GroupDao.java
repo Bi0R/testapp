@@ -45,6 +45,7 @@ public class GroupDao extends GeneralDao {
 
     public List<Group> getGroupsByParticipant(long participantId) {
         SQLQuery query = super.getSession().createNativeQuery(DataBaseConstants.GROUP_PARTICIPANT_QUERY);
+        query.addEntity(Group.class);
         query.setParameter(DataBaseConstants.USER_ID_FIELD, participantId);
         return query.list();
     }
