@@ -63,4 +63,9 @@ public class GroupController {
         }
         return null;
     }
+
+    @GetMapping("/group/participant/{participantId}")
+    public List<Group> getGroupsByParticipantId(@PathVariable long participantId) {
+        return groupDao.getGroupsByParticipant(participantId);
+    }
 }

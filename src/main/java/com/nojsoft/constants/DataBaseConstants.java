@@ -6,6 +6,8 @@ package com.nojsoft.constants;
 public class DataBaseConstants {
 
     public static String OWNER_ID_FIELD = "ownerId";
+    public static String USER_ID_FIELD = "userId";
+    public static String GROUP_ID_FIELD = "groupId";
     public static String USER_ACCESS_KEY_FIELD = "accessKey";
     public static String USER_TOKEN_FIELD = "token";
 

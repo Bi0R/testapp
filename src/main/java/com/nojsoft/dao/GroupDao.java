@@ -4,6 +4,8 @@ import com.nojsoft.constants.DataBaseConstants;
 import com.nojsoft.model.Group;
 import com.nojsoft.model.GroupParticipant;
 import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,5 +40,21 @@ public class GroupDao extends GeneralDao {
     public void denyAccess(GroupParticipant groupParticipant) {
         groupParticipant.setStatus(DataBaseConstants.USER_REJECTED);
         super.saveOrUpdateEntity(groupParticipant);
+    }
+
+    public List<Group> getGroupsByParticipant(long participantId) {
+        List <GroupParticipant> groupParticipants =
+                super.findByField(GroupParticipant.class, DataBaseConstants.USER_ID_FIELD, participantId);
+        List <Long> groups = new ArrayList<Long>();
+        if (groupParticipants.isEmpty()) {
+            return null;
+        }
+
+        for (GroupParticipant groupParticipant : groupParticipants) {
+            groups.add(groupParticipant.getGroupId());
+        }
+
+        return super.findByField(Group.class, DataBaseConstants.GROUP_ID_FIELD, groups);
+
     }
 }
