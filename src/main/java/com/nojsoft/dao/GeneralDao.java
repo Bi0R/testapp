@@ -36,4 +36,9 @@ public abstract class GeneralDao {
         return criteria.add(Restrictions.eq(field, value)).list();
     }
 
+    <T extends BaseModel> List<T> findByFieldValues(Class typeClass, String field, List values) {
+        Criteria criteria = getSession().createCriteria(typeClass);
+        return criteria.add(Restrictions.in(field, values)).list();
+    }
+
 }

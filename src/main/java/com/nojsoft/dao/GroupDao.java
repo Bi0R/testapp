@@ -54,6 +54,6 @@ public class GroupDao extends GeneralDao {
             groups.add(groupParticipant.getGroupId());
         }
 
-        return super.findByField(Group.class, DataBaseConstants.ID_FIELD, groups);
+        return super.findByFieldValues(Group.class, DataBaseConstants.ID_FIELD, groups);
     }
 }
