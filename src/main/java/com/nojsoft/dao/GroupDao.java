@@ -51,6 +51,7 @@ public class GroupDao extends GeneralDao {
         query.addEntity(Group.class);
         query.setParameter(DataBaseConstants.OWNER_ID_FIELD, ownerId);
         query.setParameter(DataBaseConstants.USER_ID_FIELD, userId);
+        System.out.println (query.toString());
         return query.list();
     }
 
