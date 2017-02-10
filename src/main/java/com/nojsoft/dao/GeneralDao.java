@@ -18,7 +18,7 @@ public abstract class GeneralDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    private Session getSession() {
+    public Session getSession() {
         return sessionFactory.getCurrentSession();
     }
 
@@ -34,6 +34,11 @@ public abstract class GeneralDao {
     <T extends BaseModel> List<T> findByField(Class typeClass, String field, Object value) {
         Criteria criteria = getSession().createCriteria(typeClass);
         return criteria.add(Restrictions.eq(field, value)).list();
+    }
+
+    <T extends BaseModel> List<T> findByFieldValues(Class typeClass, String field, List values) {
+        Criteria criteria = getSession().createCriteria(typeClass);
+        return criteria.add(Restrictions.in(field, values)).list();
     }
 
 }

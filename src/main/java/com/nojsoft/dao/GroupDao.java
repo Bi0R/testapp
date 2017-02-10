@@ -3,7 +3,10 @@ package com.nojsoft.dao;
 import com.nojsoft.constants.DataBaseConstants;
 import com.nojsoft.model.Group;
 import com.nojsoft.model.GroupParticipant;
+import org.hibernate.SQLQuery;
 import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,6 +15,10 @@ import java.util.List;
 
 @Repository("GroupDao")
 public class GroupDao extends GeneralDao {
+
+    public static String GROUP_PARTICIPANT_QUERY = "SELECT g.* from groups g " +
+            "JOIN group_participants gp ON g.id = gp.group_id WHERE gp.status = 1 AND gp.user_id =:userId";
+
 
     public Group saveOrUpdate(Group group) {
         return super.saveOrUpdateEntity(group);
@@ -38,5 +45,12 @@ public class GroupDao extends GeneralDao {
     public void denyAccess(GroupParticipant groupParticipant) {
         groupParticipant.setStatus(DataBaseConstants.USER_REJECTED);
         super.saveOrUpdateEntity(groupParticipant);
+    }
+
+    public List<Group> getGroupsByParticipant(long participantId) {
+        SQLQuery query = super.getSession().createNativeQuery(GROUP_PARTICIPANT_QUERY);
+        query.addEntity(Group.class);
+        query.setParameter(DataBaseConstants.USER_ID_FIELD, participantId);
+        return query.list();
     }
 }
