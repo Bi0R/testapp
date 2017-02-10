@@ -16,6 +16,10 @@ import java.util.List;
 @Repository("GroupDao")
 public class GroupDao extends GeneralDao {
 
+    public static String GROUP_PARTICIPANT_QUERY = "SELECT g.* from groups g " +
+            "JOIN group_participants gp ON g.id = gp.group_id WHERE gp.status = 1 AND gp.user_id =:userId";
+
+
     public Group saveOrUpdate(Group group) {
         return super.saveOrUpdateEntity(group);
     }
@@ -44,7 +48,7 @@ public class GroupDao extends GeneralDao {
     }
 
     public List<Group> getGroupsByParticipant(long participantId) {
-        SQLQuery query = super.getSession().createNativeQuery(DataBaseConstants.GROUP_PARTICIPANT_QUERY);
+        SQLQuery query = super.getSession().createNativeQuery(GROUP_PARTICIPANT_QUERY);
         query.addEntity(Group.class);
         query.setParameter(DataBaseConstants.USER_ID_FIELD, participantId);
         return query.list();
