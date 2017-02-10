@@ -22,15 +22,14 @@ public class GroupDao extends GeneralDao {
             "JOIN group_participants gp ON g.id = gp.group_id WHERE gp.status = 1 AND gp.user_id =:userId";
 
     public static String GROUP_OWNER_SEARCH = "SELECT g.* FROM groups g" +
-                         " JOIN group_participants gp " +
-                         " ON g.id = gp.group_id AND gp.status NOT IN (0,1) AND gp.user_id = :userId" +
-                         " WHERE  g.owner_id = :ownerId AND g.owner_id <> :userId" +
-                         " UNION ALL" +
-                         " SELECT g.* FROM groups g" +
-                         " WHERE  g.owner_id = :ownerId AND g.owner_id <> :userId" +
-                         " AND NOT EXISTS" +
-                         " (SELECT group_id FROM group_participants" +
-                         " WHERE owner_id = :ownerId AND status NOT IN (0,1) AND user_id = :userId );";
+            " JOIN group_participants gp ON g.id = gp.group_id AND gp.status NOT IN (0,1) AND gp.user_id = :userId" +
+            " WHERE  g.owner_id = :ownerId AND g.owner_id <> :userId" +
+            " UNION ALL" +
+            " SELECT g.* FROM groups g" +
+            " WHERE  g.owner_id = :ownerId AND g.owner_id <> :userId" +
+            " AND NOT EXISTS" +
+            " (SELECT gp.group_id FROM group_participants gp" +
+            " WHERE gp.user_id = :userId AND gp.group_id=g.id);";
 
 
     public Group saveOrUpdate(Group group) {
