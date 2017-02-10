@@ -27,8 +27,10 @@ public class GroupDao extends GeneralDao {
                          " WHERE  g.owner_id = :ownerId AND g.owner_id <> :userId" +
                          " UNION ALL" +
                          " SELECT g.* FROM groups g" +
-                         " LEFT JOIN group_participants gp ON g.id = gp.group_id" +
-                         " WHERE  g.owner_id = :ownerId AND g.owner_id <> :userId AND gp.group_id IS NULL;";
+                         " WHERE  g.owner_id = :ownerId AND g.owner_id <> :userId" +
+                         " AND NOT EXISTS" +
+                         " (SELECT group_id FROM group_participants" +
+                         " WHERE owner_id = :ownerId AND status NOT IN (0,1) AND user_id = :userId );";
 
 
     public Group saveOrUpdate(Group group) {
