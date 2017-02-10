@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -34,6 +35,11 @@ public abstract class GeneralDao {
     <T extends BaseModel> List<T> findByField(Class typeClass, String field, Object value) {
         Criteria criteria = getSession().createCriteria(typeClass);
         return criteria.add(Restrictions.eq(field, value)).list();
+    }
+
+    <T extends BaseModel> List<T> findBySeveralFields(Class typeClass, Map<String, Object> fieldValues) {
+        Criteria criteria = getSession().createCriteria(typeClass);
+        return criteria.add(Restrictions.allEq(fieldValues)).list();
     }
 
     <T extends BaseModel> List<T> findByFieldValues(Class typeClass, String field, List values) {
