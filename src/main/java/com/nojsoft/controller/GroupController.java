@@ -58,8 +58,9 @@ public class GroupController {
     @PostMapping("/group/search")
     public List<Group> searchGroup(@RequestBody GroupSearch groupSearch) {
         if (groupSearch.getFilter().equals(GeneralConstants.EMAIL)) {
-            List<User> users = userDao.getUsersByAccessKey(groupSearch.getValue());
-            return users.isEmpty() ? null : groupDao.getGroupsByOwner(users.get(0).getId());
+            List<User> owners = userDao.getUsersByAccessKey(groupSearch.getValue());
+            return owners.isEmpty() ? null : groupDao.getGroupsByOwnerStatus(owners.get(0).getId(),
+                    groupSearch.getUserId());
         }
         return null;
     }

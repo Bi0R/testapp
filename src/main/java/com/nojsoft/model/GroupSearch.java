@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 public class GroupSearch implements BaseModel {
     private String filter;
     private String value;
+    private Long userId;
 
     public String getFilter() {
         return filter;
@@ -26,5 +27,7 @@ public class GroupSearch implements BaseModel {
         this.value = value;
     }
 
+    public Long getUserId() { return userId; }
 
+    public void setUserId(Long userId) { this.userId = userId; }
 }
