@@ -4,9 +4,9 @@ import com.nojsoft.constants.DataBaseConstants;
 import com.nojsoft.model.Group;
 import com.nojsoft.model.GroupParticipant;
 import org.hibernate.SQLQuery;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +17,9 @@ import java.util.Map;
 
 @Repository("GroupDao")
 public class GroupDao extends GeneralDao {
+
+    @Autowired
+    UserDao userDao;
 
     public static String GROUP_PARTICIPANT_QUERY = "SELECT g.* from groups g " +
             "JOIN group_participants gp ON g.id = gp.group_id WHERE gp.status = 1 AND gp.user_id =:userId";
@@ -43,7 +46,7 @@ public class GroupDao extends GeneralDao {
     public List<Group> getGroupsByOwner(long ownerId) {
         Map<String, Object> fieldsValues = new HashMap<String, Object>();
         fieldsValues.put(DataBaseConstants.OWNER_ID_FIELD, ownerId);
-        fieldsValues.put(DataBaseConstants.STATUS_FIELD,1);
+        fieldsValues.put(DataBaseConstants.STATUS_FIELD, 1);
         return super.findBySeveralFields(Group.class, fieldsValues);
     }
 
@@ -75,5 +78,16 @@ public class GroupDao extends GeneralDao {
         query.addEntity(Group.class);
         query.setParameter(DataBaseConstants.USER_ID_FIELD, participantId);
         return query.list();
+    }
+
+    public Group getGroup(Group group) {
+        return super.findById(Group.class, group.getId());
+    }
+
+    public Group getFullGroup(Group group) {
+        group = getGroup(group);
+        group.setRequesters(userDao.getRequestersGroup(group));
+        group.setParticipants(userDao.getParticipantsGroup(group));
+        return group;
     }
 }

@@ -23,6 +23,10 @@ public abstract class GeneralDao {
         return sessionFactory.getCurrentSession();
     }
 
+    <T extends BaseModel> T findById(Class typeClass, long id) {
+        return (T) getSession().get(typeClass, id);
+    }
+
     <T extends BaseModel> T saveOrUpdateEntity(T model) {
         getSession().saveOrUpdate(model);
         return model;
