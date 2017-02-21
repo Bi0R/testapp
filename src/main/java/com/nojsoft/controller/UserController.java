@@ -1,7 +1,6 @@
 package com.nojsoft.controller;
 
 import com.nojsoft.dao.UserDao;
-import com.nojsoft.model.Group;
 import com.nojsoft.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
