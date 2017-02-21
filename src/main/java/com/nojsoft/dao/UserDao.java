@@ -17,7 +17,7 @@ import java.util.List;
 @Repository("UserDao")
 public class UserDao extends GeneralDao {
 
-    private final String QUERY_USERS_GROUP = "SELECT u.*     FROM users u " +
+    private final String QUERY_USERS_GROUP = "SELECT u.* FROM users u " +
             "JOIN group_participants gp " +
             "ON u.id = gp.user_id " +
             "WHERE group_id = :id " +
