@@ -1,6 +1,7 @@
 package com.nojsoft.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -22,6 +23,11 @@ public class Group implements BaseModel {
 
     @Column(name = "owner_id", nullable = false)
     private Long ownerId;
+
+    @Transient
+    private List<User> requesters;
+    @Transient
+    private List<User> participants;
 
     public Group() {
     }
@@ -53,5 +59,21 @@ public class Group implements BaseModel {
 
     public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
+    }
+
+    public List<User> getRequesters() {
+        return requesters;
+    }
+
+    public void setRequesters(List<User> requesters) {
+        this.requesters = requesters;
+    }
+
+    public List<User> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<User> participants) {
+        this.participants = participants;
     }
 }

@@ -16,8 +16,8 @@ public class User implements BaseModel {
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "name", length = 60)
-    private String name;
+    @Column(name = "userName", length = 60)
+    private String userName;
 
     @Column(name = "access_key", length = 60)
     private String accessKey;
@@ -39,12 +39,12 @@ public class User implements BaseModel {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getAccessKey() {
