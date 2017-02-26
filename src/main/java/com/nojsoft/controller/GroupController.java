@@ -69,4 +69,9 @@ public class GroupController {
     public List<Group> getGroupsByParticipantId(@PathVariable long participantId) {
         return groupDao.getGroupsByParticipant(participantId);
     }
+
+    @PostMapping("/group/detail")
+    public Group groupDetail(@RequestBody Group group) {
+        return groupDao.getFullGroup(group);
+    }
 }
