@@ -7,6 +7,8 @@ import com.nojsoft.model.Group;
 import com.nojsoft.model.GroupParticipant;
 import com.nojsoft.model.GroupSearch;
 import com.nojsoft.model.User;
+import com.nojsoft.services.GroupService;
+import com.nojsoft.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,43 +25,43 @@ import java.util.List;
 public class GroupController {
 
     @Autowired
-    private GroupDao groupDao;
+    private GroupService groupService;
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     @PostMapping("/group/save")
     public Group save(@RequestBody Group group) {
-        return groupDao.saveOrUpdate(group);
+        return groupService.saveOrUpdate(group);
     }
 
     @GetMapping("/group/owner/{ownerId}")
     public List<Group> getGroupsByOwnerId(@PathVariable long ownerId) {
-        return groupDao.getGroupsByOwner(ownerId);
+        return groupService.getGroupsByOwner(ownerId);
     }
 
     @PostMapping("/group/requestaccess")
     public ResponseEntity<String> requestAccess(@RequestBody GroupParticipant groupParticipant) {
-        groupDao.requestAccess(groupParticipant);
+        groupService.requestAccess(groupParticipant);
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 
     @PostMapping("/group/allowaccess")
     public ResponseEntity<String> allowAccess(@RequestBody GroupParticipant groupParticipant) {
-        groupDao.allowAccess(groupParticipant);
+        groupService.allowAccess(groupParticipant);
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 
     @PostMapping("/group/denyaccess")
     public ResponseEntity<String> denyAccess(@RequestBody GroupParticipant groupParticipant) {
-        groupDao.denyAccess(groupParticipant);
+        groupService.denyAccess(groupParticipant);
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 
     @PostMapping("/group/search")
     public List<Group> searchGroup(@RequestBody GroupSearch groupSearch) {
         if (groupSearch.getFilter().equals(GeneralConstants.EMAIL)) {
-            List<User> owners = userDao.getUsersByAccessKey(groupSearch.getValue());
-            return owners.isEmpty() ? null : groupDao.getGroupsByOwnerStatus(owners.get(0).getId(),
+            List<User> owners = userService.getUsersByAccessKey(groupSearch.getValue());
+            return owners.isEmpty() ? null : groupService.getGroupsByOwnerStatus(owners.get(0).getId(),
                     groupSearch.getUserId());
         }
         return null;
@@ -67,11 +69,11 @@ public class GroupController {
 
     @GetMapping("/group/participant/{participantId}")
     public List<Group> getGroupsByParticipantId(@PathVariable long participantId) {
-        return groupDao.getGroupsByParticipant(participantId);
+        return groupService.getGroupsByParticipant(participantId);
     }
 
     @PostMapping("/group/detail")
     public Group groupDetail(@RequestBody Group group) {
-        return groupDao.getFullGroup(group);
+        return groupService.getFullGroup(group);
     }
 }
