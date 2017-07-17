@@ -2,6 +2,7 @@ package com.nojsoft.controller;
 
 import com.nojsoft.dao.UserDao;
 import com.nojsoft.model.User;
+import com.nojsoft.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,15 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     @PostMapping("/user/save")
     public User save(@RequestBody User user) {
-        return userDao.saveOrUpdate(user);
+        return userService.saveOrUpdate(user);
     }
 
     @PostMapping("/user/login")
     public User login(@RequestBody User user) {
-        return userDao.getUserStatus(user);
+        return userService.getUserStatus(user);
     }
 }
