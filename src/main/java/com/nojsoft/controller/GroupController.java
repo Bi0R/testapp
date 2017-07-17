@@ -59,12 +59,7 @@ public class GroupController {
 
     @PostMapping("/group/search")
     public List<Group> searchGroup(@RequestBody GroupSearch groupSearch) {
-        if (groupSearch.getFilter().equals(GeneralConstants.EMAIL)) {
-            List<User> owners = userService.getUsersByAccessKey(groupSearch.getValue());
-            return owners.isEmpty() ? null : groupService.getGroupsByOwnerStatus(owners.get(0).getId(),
-                    groupSearch.getUserId());
-        }
-        return null;
+        return groupService.searchGroup(groupSearch);
     }
 
     @GetMapping("/group/participant/{participantId}")
