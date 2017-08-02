@@ -5,11 +5,11 @@ CREATE DATABASE testapp;
 USE testapp;
 
 CREATE TABLE users
-(	
+(
  id SERIAL,
  name VARCHAR (60),
- access_key VARCHAR (60),
- token VARCHAR (60),
+ email VARCHAR (60),
+ uid VARCHAR (60),
  authentication_type INT,
  PRIMARY KEY (id)
 );
@@ -24,7 +24,7 @@ CREATE TABLE groups
   PRIMARY KEY (id)
 );
 
-CREATE TABLE tests	
+CREATE TABLE tests
 (
  id SERIAL,
  owner_id BIGINT UNSIGNED NOT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE test_participants
  PRIMARY KEY (test_id, user_id)
 );
 
-CREATE TABLE test_questions_mc	
+CREATE TABLE test_questions_mc
 (
  id serial,
  test_id BIGINT UNSIGNED NOT NULL,
