@@ -25,7 +25,7 @@ public class UserService {
         return userDao.getUsersByAccessKey(accessKey);
     }
 
-    public User getUserStatus(User user) {
-        return userDao.getUserStatus(user);
+    public User getUserStatus(String userId) {
+        return userDao.getUserStatus(userId);
     }
 }

@@ -10,8 +10,8 @@ public class DataBaseConstants {
     public static String GROUP_ID_FIELD = "groupId";
     public static String STATUS_FIELD = "status";
     public static String ID_FIELD = "id";
-    public static String USER_ACCESS_KEY_FIELD = "accessKey";
-    public static String USER_TOKEN_FIELD = "token";
+    public static String USER_EMAIL_FIELD = "email";
+    public static String USER_UID_FIELD = "uid";
 
     public static int USER_REQUESTER = 0;
     public static int USER_ACCEPTED = 1;

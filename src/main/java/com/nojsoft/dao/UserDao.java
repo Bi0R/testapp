@@ -28,12 +28,18 @@ public class UserDao extends GeneralDao {
     }
 
     public List<User> getUsersByAccessKey(String accessKey) {
-        return super.findByField(User.class, DataBaseConstants.USER_ACCESS_KEY_FIELD, accessKey);
+        return super.findByField(User.class, DataBaseConstants.USER_EMAIL_FIELD, accessKey);
     }
 
-    public User getUserStatus(User user) {
-        List<User> users = super.findByField(User.class, DataBaseConstants.USER_TOKEN_FIELD, user.getToken());
-        user.setActive(!(users.isEmpty() || users.size() == 0));
+    public User getUserStatus(String userId) {
+        User user = null;
+        System.out.println("Method: "+userId);
+        List<User> users = super.findByField(User.class, DataBaseConstants.USER_UID_FIELD, userId);
+        if(!users.isEmpty()){
+            user=users.get(0);
+        }
+        System.out.println("Paso"+users.isEmpty());
+        //suser.setActive(!(users.isEmpty() || users.size() == 0));
         return user;
     }
 
@@ -41,9 +47,9 @@ public class UserDao extends GeneralDao {
     public List<User> getRequestersGroup(Group group) {
         List<User> users = getParticipantsByStatus(group, DataBaseConstants.USER_REQUESTER);
         for (User user : users) {
-            user.setAccessKey(null);
+            user.setEmail(null);
             user.setActive(true);
-            user.setToken(null);
+            user.setUid(null);
             user.setAuthenticationType(null);
         }
         return users;
@@ -52,9 +58,9 @@ public class UserDao extends GeneralDao {
     public List<User> getParticipantsGroup(Group group) {
         List<User> users = getParticipantsByStatus(group, DataBaseConstants.USER_ACCEPTED);
         for (User user : users) {
-            user.setAccessKey(null);
+            user.setEmail(null);
             user.setActive(true);
-            user.setToken(null);
+            user.setUid(null);
             user.setAuthenticationType(null);
         }
         return users;

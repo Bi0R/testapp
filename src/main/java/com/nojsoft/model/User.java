@@ -19,11 +19,11 @@ public class User implements BaseModel {
     @Column(name = "userName", length = 60)
     private String userName;
 
-    @Column(name = "access_key", length = 60)
-    private String accessKey;
+    @Column(name = "email", length = 60)
+    private String email;
 
-    @Column(name = "token", length = 60)
-    private String token;
+    @Column(name = "uid", length = 60)
+    private String uid;
 
     @Column(name = "authentication_type")
     private Integer authenticationType;
@@ -47,20 +47,20 @@ public class User implements BaseModel {
         this.userName = userName;
     }
 
-    public String getAccessKey() {
-        return accessKey;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAccessKey(String accessKey) {
-        this.accessKey = accessKey;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getToken() {
-        return token;
+    public String getUid() {
+        return uid;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public Integer getAuthenticationType() {
