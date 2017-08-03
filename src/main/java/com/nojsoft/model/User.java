@@ -16,8 +16,8 @@ public class User implements BaseModel {
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "userName", length = 60)
-    private String userName;
+    @Column(name = "name", length = 60)
+    private String name;
 
     @Column(name = "email", length = 60)
     private String email;
@@ -39,12 +39,12 @@ public class User implements BaseModel {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
