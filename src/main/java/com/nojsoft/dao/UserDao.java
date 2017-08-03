@@ -31,16 +31,9 @@ public class UserDao extends GeneralDao {
         return super.findByField(User.class, DataBaseConstants.USER_EMAIL_FIELD, accessKey);
     }
 
-    public User getUserStatus(String userId) {
-        User user = null;
-        System.out.println("Method: "+userId);
-        List<User> users = super.findByField(User.class, DataBaseConstants.USER_UID_FIELD, userId);
-        if(!users.isEmpty()){
-            user=users.get(0);
-        }
-        System.out.println("Paso"+users.isEmpty());
-        //suser.setActive(!(users.isEmpty() || users.size() == 0));
-        return user;
+    public User getUser(long userId) {
+        List<User> users = super.findByField(User.class, DataBaseConstants.ID_FIELD, userId);
+        return !users.isEmpty()?users.get(0):null;
     }
 
 

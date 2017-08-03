@@ -1,14 +1,10 @@
 package com.nojsoft.controller;
 
-import com.nojsoft.dao.UserDao;
 import com.nojsoft.model.User;
 import com.nojsoft.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by alan on 2/6/17.
@@ -25,8 +21,8 @@ public class UserController {
         return userService.saveOrUpdate(user);
     }
 
-    @PostMapping("/v1/users/{userId}")
-    public User login(@PathVariable String userId) {
-        return userService.getUserStatus(userId);
+    @GetMapping("/v1/users/{userId}")
+    public User login(@PathVariable long userId) {
+        return userService.getUser(userId);
     }
 }
