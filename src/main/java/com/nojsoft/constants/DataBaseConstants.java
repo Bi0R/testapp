@@ -5,16 +5,16 @@ package com.nojsoft.constants;
  */
 public class DataBaseConstants {
 
-    public static String OWNER_ID_FIELD = "ownerId";
-    public static String USER_ID_FIELD = "userId";
-    public static String GROUP_ID_FIELD = "groupId";
-    public static String STATUS_FIELD = "status";
-    public static String ID_FIELD = "id";
-    public static String USER_ACCESS_KEY_FIELD = "accessKey";
-    public static String USER_TOKEN_FIELD = "token";
+    public static final String OWNER_ID_FIELD = "ownerId";
+    public static final String USER_ID_FIELD = "userId";
+    public static final String GROUP_ID_FIELD = "groupId";
+    public static final String STATUS_FIELD = "status";
+    public static final String ID_FIELD = "id";
+    public static final String USER_EMAIL_FIELD = "email";
+    public static final String USER_UID_FIELD = "uid";
 
-    public static int USER_REQUESTER = 0;
-    public static int USER_ACCEPTED = 1;
-    public static int USER_REJECTED = 2;
+    public static final int USER_REQUESTER = 0;
+    public static final int USER_ACCEPTED = 1;
+    public static final int USER_REJECTED = 2;
 }
 
