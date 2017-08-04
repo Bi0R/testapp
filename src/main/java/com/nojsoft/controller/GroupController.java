@@ -57,11 +57,6 @@ public class GroupController {
         return groupService.searchGroup(groupSearch);
     }
 
-    @GetMapping("/group/participant/{participantId}")
-    public List<Group> getGroupsByParticipantId(@PathVariable long participantId) {
-        return groupService.getGroupsByParticipant(participantId);
-    }
-
     @PostMapping("/group/detail")
     public Group groupDetail(@RequestBody Group group) {
         return groupService.getFullGroup(group);

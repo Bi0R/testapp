@@ -44,10 +44,6 @@ public class GroupService {
         return groupDao.getGroupsByOwnerStatus(ownerId, userId);
     }
 
-    public List<Group> getGroupsByParticipant(long participantId) {
-        return groupDao.getGroupsByParticipant(participantId);
-    }
-
     public Group getFullGroup(Group group) {
         return groupDao.getFullGroup(group);
     }

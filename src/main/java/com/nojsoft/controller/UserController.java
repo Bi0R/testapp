@@ -31,8 +31,13 @@ public class UserController {
         return userService.getUser(userId);
     }
 
-    @GetMapping("v1/users/{userId}/groups/created")
+    @GetMapping("/v1/users/{userId}/groups/created")
     public List<Group> getGroupsByOwnerId(@PathVariable long userId) {
         return userService.getGroupsByOwner(userId);
+    }
+
+    @GetMapping("/v1/users/{participantId}/groups/accepted")
+    public List<Group> getGroupsByParticipantId(@PathVariable long participantId) {
+        return userService.getGroupsByParticipant(participantId);
     }
 }
