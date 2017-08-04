@@ -33,7 +33,7 @@ public class UserDao extends GeneralDao {
 
     public User getUser(long userId) {
         List<User> users = super.findByField(User.class, DataBaseConstants.ID_FIELD, userId);
-        return !users.isEmpty()?users.get(0):null;
+        return !users.isEmpty() ? users.get(0) : null;
     }
 
 
