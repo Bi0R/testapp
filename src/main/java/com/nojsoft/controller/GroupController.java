@@ -34,11 +34,6 @@ public class GroupController {
         return groupService.saveOrUpdate(group);
     }
 
-    @GetMapping("/group/owner/{ownerId}")
-    public List<Group> getGroupsByOwnerId(@PathVariable long ownerId) {
-        return groupService.getGroupsByOwner(ownerId);
-    }
-
     @PostMapping("/group/requestaccess")
     public ResponseEntity<String> requestAccess(@RequestBody GroupParticipant groupParticipant) {
         groupService.requestAccess(groupParticipant);

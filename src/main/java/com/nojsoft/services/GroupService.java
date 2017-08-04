@@ -28,8 +28,8 @@ public class GroupService {
         return groupDao.saveOrUpdate(group);
     }
 
-    public List<Group> getGroupsByOwner(long ownerId) {
-        return groupDao.getGroupsByOwner(ownerId);
+    public List<Group> getGroupsByOwner(long userId) {
+        return groupDao.getGroupsByOwner(userId);
     }
 
     public void requestAccess(GroupParticipant groupParticipant) {
