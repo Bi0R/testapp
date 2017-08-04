@@ -20,8 +20,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private GroupService groupService;
 
     @PostMapping("/v1/users")
     public User save(@RequestBody User user) {
@@ -35,6 +33,6 @@ public class UserController {
 
     @GetMapping("v1/users/{userId}/groups/created")
     public List<Group> getGroupsByOwnerId(@PathVariable long userId) {
-        return groupService.getGroupsByOwner(userId);
+        return userService.getGroupsByOwner(userId);
     }
 }
