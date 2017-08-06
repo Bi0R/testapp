@@ -34,11 +34,6 @@ public class GroupController {
         return groupService.saveOrUpdate(group);
     }
 
-    @GetMapping("/group/owner/{ownerId}")
-    public List<Group> getGroupsByOwnerId(@PathVariable long ownerId) {
-        return groupService.getGroupsByOwner(ownerId);
-    }
-
     @PostMapping("/group/requestaccess")
     public ResponseEntity<String> requestAccess(@RequestBody GroupParticipant groupParticipant) {
         groupService.requestAccess(groupParticipant);
@@ -60,11 +55,6 @@ public class GroupController {
     @PostMapping("/group/search")
     public List<Group> searchGroup(@RequestBody GroupSearch groupSearch) {
         return groupService.searchGroup(groupSearch);
-    }
-
-    @GetMapping("/group/participant/{participantId}")
-    public List<Group> getGroupsByParticipantId(@PathVariable long participantId) {
-        return groupService.getGroupsByParticipant(participantId);
     }
 
     @PostMapping("/group/detail")

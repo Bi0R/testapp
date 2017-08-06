@@ -19,7 +19,7 @@ CREATE TABLE groups
 (
  id SERIAL,
  owner_id BIGINT UNSIGNED NOT NULL,
- userName VARCHAR (60),
+ name VARCHAR (60),
  FOREIGN KEY (owner_id) REFERENCES users (id),
   PRIMARY KEY (id)
 );

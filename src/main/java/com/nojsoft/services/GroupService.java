@@ -28,10 +28,6 @@ public class GroupService {
         return groupDao.saveOrUpdate(group);
     }
 
-    public List<Group> getGroupsByOwner(long ownerId) {
-        return groupDao.getGroupsByOwner(ownerId);
-    }
-
     public void requestAccess(GroupParticipant groupParticipant) {
         groupDao.requestAccess(groupParticipant);
     }
@@ -46,10 +42,6 @@ public class GroupService {
 
     public List<Group> getGroupsByOwnerStatus(long ownerId, long userId) {
         return groupDao.getGroupsByOwnerStatus(ownerId, userId);
-    }
-
-    public List<Group> getGroupsByParticipant(long participantId) {
-        return groupDao.getGroupsByParticipant(participantId);
     }
 
     public Group getFullGroup(Group group) {
