@@ -27,15 +27,20 @@ public class UserDao extends GeneralDao {
         return super.saveOrUpdateEntity(user);
     }
 
-    public List<User> getUsersByAccessKey(String accessKey) {
-        return super.findByField(User.class, DataBaseConstants.USER_EMAIL_FIELD, accessKey);
+    public User getUsersByEmail(String email) {
+        List<User> users = super.findByField(User.class, DataBaseConstants.USER_EMAIL_FIELD, email);
+        return !users.isEmpty() ? users.get(0) : null;
     }
 
-    public User getUser(long userId) {
+    public User getUserById(long userId) {
         List<User> users = super.findByField(User.class, DataBaseConstants.ID_FIELD, userId);
         return !users.isEmpty() ? users.get(0) : null;
     }
 
+    public User getUserByUId(String userUId) {
+        List<User> users = super.findByField(User.class, DataBaseConstants.USER_UID_FIELD, userUId);
+        return !users.isEmpty() ? users.get(0) : null;
+    }
 
     public List<User> getRequestersGroup(Group group) {
         List<User> users = getParticipantsByStatus(group, DataBaseConstants.USER_REQUESTER);

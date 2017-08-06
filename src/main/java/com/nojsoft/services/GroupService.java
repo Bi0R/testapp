@@ -9,7 +9,6 @@ import com.nojsoft.model.GroupSearch;
 import com.nojsoft.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -50,8 +49,8 @@ public class GroupService {
 
     public List<Group> searchGroup(GroupSearch groupSearch) {
         if (groupSearch.getFilter().equals(GeneralConstants.EMAIL)) {
-            List<User> owners = userDao.getUsersByAccessKey(groupSearch.getValue());
-            return owners.isEmpty() ? null : groupDao.getGroupsByOwnerStatus(owners.get(0).getId(),
+            User owner = userDao.getUsersByEmail(groupSearch.getValue());
+            return owner==null ? null : groupDao.getGroupsByOwnerStatus(owner.getId(),
                     groupSearch.getUserId());
         }
         return null;
