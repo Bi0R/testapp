@@ -34,7 +34,9 @@ public class UserService {
         return userDao.getUser(userId);
     }
 
-    public List<Group> getGroupsByOwner(long userId) { return groupDao.getGroupsByOwner(userId); }
+    public List<Group> getGroupsByOwner(long userId) {
+        return groupDao.getGroupsByOwner(userId);
+    }
 
     public List<Group> getGroupsByParticipant(long participantId) {
         return groupDao.getGroupsByParticipant(participantId);
