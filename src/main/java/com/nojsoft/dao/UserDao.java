@@ -37,8 +37,8 @@ public class UserDao extends GeneralDao {
         return !users.isEmpty() ? users.get(0) : null;
     }
 
-    public User getUserByUId(String userUId) {
-        List<User> users = super.findByField(User.class, DataBaseConstants.USER_UID_FIELD, userUId);
+    public User getUserByUid(String userUid) {
+        List<User> users = super.findByField(User.class, DataBaseConstants.USER_UID_FIELD, userUid);
         return !users.isEmpty() ? users.get(0) : null;
     }
 
