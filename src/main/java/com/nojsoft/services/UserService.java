@@ -24,9 +24,9 @@ public class UserService {
 
     public User saveOrUpdate(User user) {
         User checkUser;
-        if((checkUser=userDao.getUserByUId(user.getUid()))!=null) {
+        if((checkUser = userDao.getUserByUId(user.getUid())) != null) {
             return checkUser;
-        }else if ((checkUser=userDao.getUsersByEmail(user.getEmail()))!=null){
+        }else if ((checkUser = userDao.getUsersByEmail(user.getEmail())) != null){
             checkUser.setUid(user.getUid());
             return userDao.saveOrUpdate(checkUser);
         }else{

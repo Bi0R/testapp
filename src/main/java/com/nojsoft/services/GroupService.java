@@ -50,7 +50,7 @@ public class GroupService {
     public List<Group> searchGroup(GroupSearch groupSearch) {
         if (groupSearch.getFilter().equals(GeneralConstants.EMAIL)) {
             User owner = userDao.getUsersByEmail(groupSearch.getValue());
-            return owner==null ? null : groupDao.getGroupsByOwnerStatus(owner.getId(),
+            return owner == null ? null : groupDao.getGroupsByOwnerStatus(owner.getId(),
                     groupSearch.getUserId());
         }
         return null;
