@@ -23,18 +23,28 @@ public class UserService {
     GroupDao groupDao;
 
     public User saveOrUpdate(User user) {
-        return userDao.saveOrUpdate(user);
+        User checkUser;
+        if((checkUser = userDao.getUserByUid(user.getUid())) != null) {
+            return checkUser;
+        } else if ((checkUser = userDao.getUsersByEmail(user.getEmail())) != null) {
+            checkUser.setUid(user.getUid());
+            return userDao.saveOrUpdate(checkUser);
+        } else {
+            return userDao.saveOrUpdate(user);
+        }
     }
 
-    public List<User> getUsersByAccessKey(String accessKey) {
-        return userDao.getUsersByAccessKey(accessKey);
+    public User getUsersByEmail(String accessKey) {
+        return userDao.getUsersByEmail(accessKey);
     }
 
     public User getUser(long userId) {
-        return userDao.getUser(userId);
+        return userDao.getUserById(userId);
     }
 
-    public List<Group> getGroupsByOwner(long userId) { return groupDao.getGroupsByOwner(userId); }
+    public List<Group> getGroupsByOwner(long userId) {
+        return groupDao.getGroupsByOwner(userId);
+    }
 
     public List<Group> getGroupsByParticipant(long participantId) {
         return groupDao.getGroupsByParticipant(participantId);
