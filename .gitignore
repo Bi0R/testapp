@@ -44,3 +44,9 @@ target/
 
 #Other
 test-app.iml
+build/tmp/compileJava/
+
+#Gradle
+.idea/**/gradle.xml
+.idea/**/libraries
+.gradle
