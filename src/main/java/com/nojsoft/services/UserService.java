@@ -30,6 +30,7 @@ public class UserService {
             checkUser.setUid(user.getUid());
             return userDao.saveOrUpdate(checkUser);
         } else {
+            user.setActive(true);
             return userDao.saveOrUpdate(user);
         }
     }
