@@ -21,6 +21,12 @@
 # Gradle:
 .idea/gradle.xml
 .idea/libraries
+.DS_Store
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/modules.xml
+.idea/vcs.xml
+src/main/main.iml
 
 # Mongo Explorer plugin:
 .idea/mongoSettings.xml
@@ -51,3 +57,4 @@ build/tmp/compileJava/
 .idea/**/libraries
 .gradle
 build
+.idea/modules/
