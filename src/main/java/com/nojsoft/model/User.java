@@ -29,7 +29,7 @@ public class User implements BaseModel {
     private Integer authenticationType;
 
     @Transient
-    private boolean active;
+    private boolean active = true;
 
     public Long getId() {
         return id;
