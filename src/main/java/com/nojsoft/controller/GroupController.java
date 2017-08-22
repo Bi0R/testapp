@@ -3,10 +3,7 @@ package com.nojsoft.controller;
 import com.nojsoft.constants.GeneralConstants;
 import com.nojsoft.dao.GroupDao;
 import com.nojsoft.dao.UserDao;
-import com.nojsoft.model.Group;
-import com.nojsoft.model.GroupParticipant;
-import com.nojsoft.model.GroupSearch;
-import com.nojsoft.model.User;
+import com.nojsoft.model.*;
 import com.nojsoft.services.GroupService;
 import com.nojsoft.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,18 +43,20 @@ public class GroupController {
     }
 
     @PostMapping("/v1/users/{userId}/groups/{groupId}/allow_access")
-    public ResponseEntity<String> allowAccess(@PathVariable long groupId, @RequestBody long participantId) {
+    public ResponseEntity<String> allowAccess(@PathVariable long userId, @PathVariable long groupId,
+                                              @RequestBody Participant participant) {
         GroupParticipant groupParticipant = new GroupParticipant();
-        groupParticipant.setUserId(participantId);
+        groupParticipant.setUserId(participant.getParticipantId());
         groupParticipant.setGroupId(groupId);
         groupService.allowAccess(groupParticipant);
         return new ResponseEntity<String>(HttpStatus.CREATED);
     }
 
     @PostMapping("/v1/users/{userId}/groups/{groupId}/deny_access")
-    public ResponseEntity<String> denyAccess(@PathVariable long groupId, @RequestBody long participantId) {
+    public ResponseEntity<String> denyAccess(@PathVariable long userId, @PathVariable long groupId,
+                                             @RequestBody Participant participant) {
         GroupParticipant groupParticipant = new GroupParticipant();
-        groupParticipant.setUserId(participantId);
+        groupParticipant.setUserId(participant.getParticipantId());
         groupParticipant.setGroupId(groupId);
         groupService.denyAccess(groupParticipant);
         return new ResponseEntity<String>(HttpStatus.CREATED);
