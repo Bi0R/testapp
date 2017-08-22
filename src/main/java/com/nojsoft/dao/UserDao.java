@@ -43,7 +43,7 @@ public class UserDao extends GeneralDao {
     }
 
     public List<User> getRequestersGroup(Group group) {
-        List<User> users = getParticipantsByStatus(group, DataBaseConstants.USER_REQUESTER);
+        List<User> users = getParticipantsByStatus(group, DataBaseConstants.USER_REQUESTED);
         for (User user : users) {
             user.setEmail(null);
             user.setActive(true);

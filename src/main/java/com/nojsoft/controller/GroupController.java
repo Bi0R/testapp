@@ -3,10 +3,7 @@ package com.nojsoft.controller;
 import com.nojsoft.constants.GeneralConstants;
 import com.nojsoft.dao.GroupDao;
 import com.nojsoft.dao.UserDao;
-import com.nojsoft.model.Group;
-import com.nojsoft.model.GroupParticipant;
-import com.nojsoft.model.GroupSearch;
-import com.nojsoft.model.User;
+import com.nojsoft.model.*;
 import com.nojsoft.services.GroupService;
 import com.nojsoft.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 /**
@@ -29,27 +27,39 @@ public class GroupController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/group/save")
-    public Group save(@RequestBody Group group) {
+    @PostMapping("/v1/users/{userId}/groups")
+    public Group save(@PathVariable Long userId, @RequestBody Group group) {
+        group.setOwnerId(userId);
         return groupService.saveOrUpdate(group);
     }
 
-    @PostMapping("/group/requestaccess")
-    public ResponseEntity<String> requestAccess(@RequestBody GroupParticipant groupParticipant) {
+    @PostMapping("/v1/users/{userId}/groups/{groupId}/request_access")
+    public ResponseEntity<String> requestAccess(@PathVariable long userId, @PathVariable long groupId) {
+        GroupParticipant groupParticipant = new GroupParticipant();
+        groupParticipant.setUserId(userId);
+        groupParticipant.setGroupId(groupId);
         groupService.requestAccess(groupParticipant);
-        return new ResponseEntity<String>(HttpStatus.OK);
+        return new ResponseEntity<String>(HttpStatus.CREATED);
     }
 
-    @PostMapping("/group/allowaccess")
-    public ResponseEntity<String> allowAccess(@RequestBody GroupParticipant groupParticipant) {
+    @PostMapping("/v1/users/{userId}/groups/{groupId}/allow_access")
+    public ResponseEntity<String> allowAccess(@PathVariable long userId, @PathVariable long groupId,
+                                              @RequestBody Participant participant) {
+        GroupParticipant groupParticipant = new GroupParticipant();
+        groupParticipant.setUserId(participant.getParticipantId());
+        groupParticipant.setGroupId(groupId);
         groupService.allowAccess(groupParticipant);
-        return new ResponseEntity<String>(HttpStatus.OK);
+        return new ResponseEntity<String>(HttpStatus.CREATED);
     }
 
-    @PostMapping("/group/denyaccess")
-    public ResponseEntity<String> denyAccess(@RequestBody GroupParticipant groupParticipant) {
+    @PostMapping("/v1/users/{userId}/groups/{groupId}/deny_access")
+    public ResponseEntity<String> denyAccess(@PathVariable long userId, @PathVariable long groupId,
+                                             @RequestBody Participant participant) {
+        GroupParticipant groupParticipant = new GroupParticipant();
+        groupParticipant.setUserId(participant.getParticipantId());
+        groupParticipant.setGroupId(groupId);
         groupService.denyAccess(groupParticipant);
-        return new ResponseEntity<String>(HttpStatus.OK);
+        return new ResponseEntity<String>(HttpStatus.CREATED);
     }
 
     @PostMapping("/group/search")
@@ -61,4 +71,5 @@ public class GroupController {
     public Group groupDetail(@RequestBody Group group) {
         return groupService.getFullGroup(group);
     }
+
 }

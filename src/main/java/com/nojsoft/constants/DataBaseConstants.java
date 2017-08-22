@@ -13,7 +13,7 @@ public class DataBaseConstants {
     public static final String USER_EMAIL_FIELD = "email";
     public static final String USER_UID_FIELD = "uid";
 
-    public static final int USER_REQUESTER = 0;
+    public static final int USER_REQUESTED = 0;
     public static final int USER_ACCEPTED = 1;
     public static final int USER_REJECTED = 2;
 }

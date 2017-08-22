@@ -7,9 +7,7 @@ import org.hibernate.SQLQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by alan on 1/14/17.
@@ -56,7 +54,7 @@ public class GroupDao extends GeneralDao {
     }
 
     public void requestAccess(GroupParticipant groupParticipant) {
-        groupParticipant.setStatus(DataBaseConstants.USER_REQUESTER);
+        groupParticipant.setStatus(DataBaseConstants.USER_REQUESTED);
         super.saveOrUpdateEntity(groupParticipant);
     }
 
