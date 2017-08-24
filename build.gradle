@@ -39,7 +39,7 @@ ant.taskdef(
 task deploy {
     doLast {
         ant.scp(
-                file: file("$buildDir/libs/test-app-1.0-SNAPSHOT.war"),
+                file: file("$buildDir/libs/test-app.war"),
                 remoteToFile: "alan@noj-tests.mynetgear.com:/opt/tomcat/webapps/test-app.war",
                 keyfile: "~/.ssh/id_rsa",
                 "trust": "yes"
